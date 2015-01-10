@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html>
+
+<body>
+
+
+
+<h1> Statistical Calculator </h1>
+
+
+
+<input type="text" id="mySelect" value="Put in numbers then press enter" onchange="onChange()"> 
+
+
+<input type="button" value="Reload Page" onClick="document.location.reload(true)"> 
+
+
+
+<p id="demo">
+
+</p>
+
+
+
+<ul id="list">
+</ul>
+
+
+
+<button onclick="calculateAll()">Get Statistics</button>
+
+
+<p id="test">
+
+</p>
+
+
+<p id="test2">
+
+</p>
+
+
+<p id="test3">
+
+</p>
+
+
+
+<script>
+
+
+var myArray = []
+
+
+
+
+function onChange() 
+{
+     
+var x = document.getElementById("mySelect").value;
+    
+ myArray[myArray.length] = Number(x)  
+
+     var para=document.createElement("li");
+   
+  var node=document.createTextNode(x);
+   
+  para.appendChild(node);
+
+   
+  var element=document.getElementById("list");
+   
+  element.appendChild(para); 
+
+}
+
+
+ 
+
+
+function calculateAll()
+{
+  
+
+  var y = calculateMean();
+ 
+ var z = calculateMedian();
+ 
+ var ppq = calculateStandardDeviation();
+ 
+ document.getElementById("test").innerHTML = "mean =" + y;
+ 
+ document.getElementById("test2").innerHTML = "median =" + z;
+ 
+ document.getElementById("test3").innerHTML = "standard deviation =" + ppq;
+ 
+}
+     
+
+
+
+function calculateMean()
+{
+    
+var sum = 0
+    
+for (i=0; i < myArray.length; i++)   
+    
+{
+        
+sum = sum + myArray[i] 
+    
+}
+    sum = sum/myArray.length
+    
+return sum
+
+}
+
+
+  
+
+
+function calculateMedian()
+{
+   
+var dataS = myArray.sort(function(a, b){return a-b});  
+  
+   var length = myArray.length 
+ 
+  if (length%2 === 0)
+   {
+  
+   var kaNe = length/2; 
+ 
+    var baNe = ((dataS[kaNe-1] + dataS[kaNe])/2)
+   
+  return baNe
+   
+}
+   
+else 
+  
+ {
+    
+ 
+var kaNe = length/2;
+   
+  var baNe = myArray[kaNe - 0.5]
+   
+  return baNe    
+   
+} 
+
+}
+
+
+
+function calculateStandardDeviation()
+{
+
+
+myArray2 = []
+
+var mean = calculateMean()
+
+
+var diff = 0
+   
+ for (i=0; i < myArray.length; i++)   
+    {
+   
+    diff = myArray[i] - mean 
+   
+    myArray2[i] = diff * diff
+    
+}
+     
+ 
+    temp = myArray
+ 
+   myArray = myArray2
+  
+  var r = calculateMean()
+  
+  myArray = temp
+    
+
+    return Math.sqrt(r)
+      
+
+    
+}
+ 
+
+
+
+
+
+
+</script>
+
+</body>
+
+</html>
